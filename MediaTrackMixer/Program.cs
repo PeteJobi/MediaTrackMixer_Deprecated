@@ -50,8 +50,8 @@ async Task GetInputs()
     if (trackGroups.Any())
     {
         Console.WriteLine("Enter the menu's number to access the corresponding menu.");
-        Console.WriteLine("1. Add tracks");
-        Console.WriteLine("2. Replace tracks");
+        Console.WriteLine("1. Add inputs");
+        Console.WriteLine("2. Replace all inputs");
         Console.WriteLine("3. Remove single input");
         Console.WriteLine("4. Remove all inputs");
         Console.WriteLine("5. Mix tracks");
@@ -84,19 +84,19 @@ async Task GetInputs()
             trackGroups.Clear();
             return;
         case "5":
-            Console.WriteLine("Enter the tracks you want to mix, separated by space, in the format explained below:");
+            Console.WriteLine("Enter the tracks you want to mix, separated by space, in the format shown below:");
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("[InputIndex]:[TrackIndex] ");
+            Console.WriteLine("[InputIndex]:[TrackIndex] ");
+            //Console.ForegroundColor = ConsoleColor.White;
+            //Console.WriteLine("- e.g 0:1 to select the second track (1) of the first input (0)");
+            //Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("[InputIndex]:C ");
+            //Console.ForegroundColor = ConsoleColor.White;
+            //Console.WriteLine("- e.g 1:C to select the chapters (C) of the second input (1)");
+            //Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("[InputIndex]:[TrackLetter(s)] ");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("- e.g 0:1 to select the second track (1) of the first input (0)");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("[InputIndex]:C ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("- e.g 1:C to select the chapters (C) of the second input (1)");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("[InputIndex]:[TrackLetters] ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("- e.g 1:a to select all the audio tracks (a) of the second input (1) or 0:s to select all the subtitle tracks (s) of the first input (0) or 2:vs to select all the audio and subtitle tracks (as) of the third input (2)");
+            //Console.WriteLine("- e.g 1:a to select all the audio tracks (a) of the second input (1) or 0:s to select all the subtitle tracks (s) of the first input (0) or 2:vs to select all the audio and subtitle tracks (as) of the third input (2)");
             Console.WriteLine("The colon (:) can be omitted in most cases.");
             input = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(input)) return;
@@ -109,7 +109,7 @@ async Task GetInputs()
                 return;
             }
 
-            Console.WriteLine("Enter the full path of the output. If you enter an relative path, it's going to be relative to the path of the first input");
+            Console.WriteLine("Enter the full path of the output. If you enter a relative path, it's going to be relative to the path of the first input");
             input = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(input)) return;
             if (input[0] == '"') input = input[1..];
@@ -192,7 +192,7 @@ char GetTypeChar(TrackType type) => type switch
     return (maps, null);
 
     (List<Map>? Maps, string ErrorMessage) InputIndexError(string mapString, int inputIndex) => 
-        (null, $"{mapString} not valid. InputIndex {inputIndex} exceeds number of inputs ({trackGroups.Count})");
+        (null, $"{mapString} not valid. InputIndex {inputIndex} exceeds number of inputs minus 1 ({trackGroups.Count} - 1)");
     (List<Map>? Maps, string ErrorMessage) TrackIndexError(string mapString, int inputIndex, int trackIndex) => 
-        (null, $"{mapString} not valid. TrackIndex {trackIndex} exceeds number of tracks ({trackGroups[inputIndex].Tracks.Count}) in input #{inputIndex}");
+        (null, $"{mapString} not valid. TrackIndex {trackIndex} exceeds number of tracks minus 1 ({trackGroups[inputIndex].Tracks.Count} - 1) in input #{inputIndex}");
 }
