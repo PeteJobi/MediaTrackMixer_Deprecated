@@ -19,9 +19,14 @@ You can also just download the release builds if you don't wish to build manuall
 If you wish to run the software without installing the required .NET runtime, download the self-contained release.
 
 ## How to use
-When you open the program, you will be prompted to enter the full paths of input media files from which you wish to extract/combine tracks. Each path should be contained in quotes, and anything outside quotes is discarded. Using the menu, you can add, remove and rechoose inputs. Enter the corresponding number to use a menu.
+When you open the program, you will be prompted to enter the full paths of input media files from which you wish to extract/combine tracks. Each path should be contained in quotes, and anything outside quotes is discarded. You can drag and drop the files instead of typing them out. Enter the corresponding menu number to use a menu.
 
-The last menu, "Mix tracks", does what you're here for. You'll need to enter the tracks you want to mix, using one or more of the formats below:
+1. **Add inputs**: Add more inputs to the ones you've already added.
+2. **Replace inputs**: Clear out what you've inputed by replacing them with new ones.
+3. **Remove single input**: Remove a single input by specifying the input's zero-based index. Zero-based means the first input has an index of 0, second has an index of 1 e.t.c.
+4. **Remove all inputs**: Clear out all the inputs you've added to start afresh.
+
+The last menu, "**5. Mix tracks**", does what you're here for. You'll need to enter the tracks you want to mix, using one or more of the formats below:
 - **[InputIndex]:[TrackIndex]**..... **InputIndex** represents the zero-based index of the input media file, and **TrackIndex** represents the zero-based index of the track contained in that input. Zero-based means the first input has an index of 0, second has an index of 1 e.t.c. To select the first track of the second input, you would use **1:0**.
 - **[InputIndex]:C**.... **C** means that you're selecting the chapters of this input. You can't select individual chapters - it has to be all or none. Use 0:C to select the chapters of the first input.
 - **[InputIndex]:[TrackLetter(s)]**..... **TrackLetter** represents the letter of the track type, which can be **v** (video), **a** (audio), **s** (subtitles) or **c** (chapters). Use **TrackLetter** to select all tracks of that type. For example, if the first input has video track 0:0 and two audio tracks 0:1 and 0:2, you can use **0:a** to select both audio tracks. You can also use two or more letters. In the previous example, you can use **0:va** instead of typing out "0:0 0:1 0:2". The order of the letters do not matter. **0:avs** will select all audio, video and subtitle tracks of the first input.
@@ -32,4 +37,4 @@ The order of the selection matters. If you wish to set a default track in a medi
 
 After you're done selecting tracks, you will need to enter the path of the output file, including the extension. If you specify a relative path (for example, a path without "C:" on Windows), that path will be relative to the path of the first input. So if you enter "MyVideo.mkv" as the output file, a file named as such will be created in the same folder that contains the input file. **Be warned** that if the specified output file already exists, it will be overwritten!
 
-The file types that this program officially support are .mkv, .mp4 and .mp3. But there are no limitations at all to file types, and any media file with tracks may work. Keep in mind that there may be limitations with certain file types - for example, .mp3 files cannot store video, audio or subtitle tracks.
+The file types that this program officially supports are .mkv, .mp4 and .mp3. But there are no limitations at all to file types, and any media file with tracks may work. Keep in mind that there may be limitations with certain file types - for example, .mp3 files cannot store video or subtitle tracks.
