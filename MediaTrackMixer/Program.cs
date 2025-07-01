@@ -66,7 +66,7 @@ async Task GetInputs()
             Console.WriteLine("Put the full paths of the input files in quotes. You can enter multiple paths separated by space or you can drag and drop the files.");
             input = Console.ReadLine();
             if(string.IsNullOrWhiteSpace(input)) return;
-            var matchCollection = Regex.Matches(input, @"(?:""(.+?)"")+");
+            var matchCollection = Regex.Matches(input, @"(?:""(.+?)"")+?");
             var paths = matchCollection.Select(mc => mc.Groups[1].Value);
             if (adding) paths = trackGroups.Select(tg => tg.Path).Concat(paths);
             var inputs = paths as string[] ?? paths.ToArray();
