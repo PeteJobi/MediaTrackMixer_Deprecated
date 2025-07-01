@@ -91,6 +91,7 @@ namespace MediaTrackMixer
             var outputExtension = Path.GetExtension(output);
             var subtitleEncode = "-c:s mov_text";
             var audioEncode = "-c:a copy";
+            var disableDefaultMappingFromFirstInput = "-map_metadata -1 -map_chapters -1"; //By default, ffmpeg maps the global metadata and chapters from the first input. These arguments disable that.
             switch (outputExtension)
             {
                 case ".mkv":
@@ -111,7 +112,7 @@ namespace MediaTrackMixer
             }
 
             File.Delete(output);
-            await StartProcess(ffmpegPath, $"{inputArgs} -c:v copy {audioEncode} {subtitleEncode} {mapArgs} -max_interleave_delta 0 \"{output}\"", null, (sender, args) =>
+            await StartProcess(ffmpegPath, $"{inputArgs} -c:v copy {audioEncode} {subtitleEncode} {disableDefaultMappingFromFirstInput} {mapArgs} -max_interleave_delta 0 \"{output}\"", null, (sender, args) =>
             {
                 if (string.IsNullOrWhiteSpace(args.Data)) return;
                 Debug.WriteLine(args.Data);
